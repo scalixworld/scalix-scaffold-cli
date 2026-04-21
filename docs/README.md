@@ -10,7 +10,7 @@ Welcome to the comprehensive documentation for the Scalix Scaffold System!
 - **[Creating Templates](./creating-templates.md)** - Building new project templates
 
 ### Development Tools
-- **[Dev Tools Guide](./dev-tools.md)** - @scalix-ai package development
+- **[Dev Tools Guide](./dev-tools.md)** - @scalix-world package development
 
 ### Reference
 - **[API Reference](./api-reference.md)** - Complete API documentation
@@ -24,7 +24,7 @@ Welcome to the comprehensive documentation for the Scalix Scaffold System!
 | [Setup Guide](./setup-guide.md) | Get started with installation and configuration |
 | [Creating Templates](./creating-templates.md) | Learn to build new project templates |
 | [CLI Development](./cli-development.md) | Extend the command-line interface |
-| [Dev Tools](./dev-tools.md) | Develop @scalix-ai packages |
+| [Dev Tools](./dev-tools.md) | Develop @scalix-world packages |
 
 ## 🏗️ System Architecture
 
@@ -115,7 +115,7 @@ We welcome contributions! See our [Contributing Guide](./contributing.md) for de
 - **Suggest features**: Create feature requests
 - **Write documentation**: Improve guides and docs
 - **Create templates**: Build new project templates
-- **Develop tools**: Create new @scalix-ai packages
+- **Develop tools**: Create new @scalix-world packages
 
 ## 📞 Support
 

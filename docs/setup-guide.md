@@ -151,7 +151,7 @@ npm run dev
 
 ## Dev Tools Setup
 
-### Publishing @scalix-ai Packages
+### Publishing @scalix-world Packages
 
 1. **Build package**
    ```bash
@@ -349,7 +349,7 @@ cd cli && npm link
 
 **Solutions**:
 - Login to npm: `npm login`
-- Check npm permissions for @scalix-ai scope
+- Check npm permissions for @scalix-world scope
 - Verify GitHub repository access
 
 ### Debug Mode
