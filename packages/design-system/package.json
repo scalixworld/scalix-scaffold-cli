@@ -1,0 +1,63 @@
+{
+  "name": "@scalix-world/design-system",
+  "version": "1.0.0",
+  "description": "Comprehensive design system with modern icons and color schemes for Scalix templates",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    },
+    "./icons": {
+      "types": "./dist/icons/index.d.ts",
+      "import": "./dist/icons/index.mjs",
+      "require": "./dist/icons/index.js"
+    },
+    "./colors": {
+      "types": "./dist/colors/index.d.ts",
+      "import": "./dist/colors/index.mjs",
+      "require": "./dist/colors/index.js"
+    },
+    "./themes": {
+      "types": "./dist/themes/index.d.ts",
+      "import": "./dist/themes/index.mjs",
+      "require": "./dist/themes/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsup src/index.ts --format cjs,esm --dts",
+    "dev": "tsup src/index.ts --format cjs,esm --dts --watch",
+    "lint": "eslint src --ext .ts,.tsx",
+    "test": "vitest"
+  },
+  "keywords": [
+    "design-system",
+    "icons",
+    "colors",
+    "ui",
+    "scalix",
+    "react",
+    "typescript"
+  ],
+  "author": "Scalix",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/react": "18.2.43",
+    "@typescript-eslint/eslint-plugin": "6.14.0",
+    "@typescript-eslint/parser": "6.14.0",
+    "eslint": "8.55.0",
+    "tsup": "8.0.1",
+    "typescript": "5.2.2",
+    "vitest": "1.0.4"
+  },
+  "peerDependencies": {
+    "react": "18.2.0",
+    "lucide-react": "0.469.0"
+  },
+  "dependencies": {
+    "clsx": "2.1.1"
+  }
+}

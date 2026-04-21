@@ -1,0 +1,107 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Custom styles */
+.product-card {
+  @apply bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden transition-all duration-300 hover:shadow-lg;
+}
+
+.product-image {
+  @apply aspect-square w-full object-cover transition-transform duration-300 group-hover:scale-105;
+}
+
+.price-current {
+  @apply text-2xl font-bold text-gray-900;
+}
+
+.price-original {
+  @apply text-lg text-gray-500 line-through;
+}
+
+.badge-sale {
+  @apply bg-red-500 text-white px-2 py-1 rounded text-xs font-medium;
+}
+
+.badge-featured {
+  @apply bg-blue-500 text-white px-2 py-1 rounded text-xs font-medium;
+}
+
+/* E-commerce specific styles */
+.cart-item {
+  @apply flex gap-4 p-4 border rounded-lg;
+}
+
+.checkout-form {
+  @apply space-y-4;
+}
+
+.product-gallery {
+  @apply grid grid-cols-4 gap-2;
+}
+
+.product-gallery img {
+  @apply aspect-square object-cover rounded cursor-pointer border-2 border-transparent hover:border-primary transition-colors;
+}
+
+.product-gallery img.active {
+  @apply border-primary;
+}
+
+.star-rating {
+  @apply flex items-center gap-1;
+}
+
+.star-rating .star {
+  @apply text-yellow-400;
+}
+
+.category-grid {
+  @apply grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4;
+}
+
+.featured-products {
+  @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6;
+}
+
+.hero-gradient {
+  @apply bg-gradient-to-r from-blue-600 to-purple-700;
+}
+
+.newsletter-signup {
+  @apply bg-primary text-primary-foreground;
+}
+
+.stats-section {
+  @apply bg-muted/50 py-12;
+}
+
+.stats-grid {
+  @apply grid grid-cols-2 md:grid-cols-4 gap-8 text-center;
+}
+
+.stats-number {
+  @apply text-3xl font-bold text-primary mb-2;
+}
+
+.stats-label {
+  @apply text-muted-foreground;
+}

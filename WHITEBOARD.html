@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Scalix Scaffold-System - Architecture Whiteboard</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:#0f172a;color:#e2e8f0;overflow:hidden;height:100vh;width:100vw}
+  #toolbar{position:fixed;top:0;left:0;right:0;height:56px;background:linear-gradient(135deg,#1e293b 0%,#0f172a 100%);border-bottom:1px solid #334155;display:flex;align-items:center;padding:0 20px;z-index:100;gap:16px}
+  #toolbar h1{font-size:16px;font-weight:700;color:#f8fafc;white-space:nowrap}
+  #toolbar .subtitle{font-size:12px;color:#94a3b8;margin-left:8px}
+  .toolbar-sep{width:1px;height:28px;background:#334155}
+  .toolbar-btn{padding:5px 12px;border:1px solid #475569;background:#1e293b;color:#cbd5e1;border-radius:6px;font-size:12px;cursor:pointer;transition:all .15s}
+  .toolbar-btn:hover{background:#334155;color:#f1f5f9}
+  .toolbar-btn.active{background:#3b82f6;border-color:#3b82f6;color:#fff}
+  #zoom-display{font-size:12px;color:#94a3b8;min-width:45px;text-align:center}
+  #canvas-container{position:fixed;top:56px;left:0;right:0;bottom:0;overflow:hidden;cursor:grab}
+  #canvas-container.dragging{cursor:grabbing}
+  #canvas{position:absolute;transform-origin:0 0}
+  .node{position:absolute;border-radius:12px;padding:14px 18px;cursor:move;user-select:none;min-width:140px;transition:box-shadow .15s;border:2px solid transparent}
+  .node:hover{box-shadow:0 0 0 2px rgba(59,130,246,.5),0 8px 32px rgba(0,0,0,.4)}
+  .node.selected{box-shadow:0 0 0 3px #3b82f6,0 8px 32px rgba(59,130,246,.2)}
+  .node-title{font-weight:700;font-size:13px;margin-bottom:4px;display:flex;align-items:center;gap:6px}
+  .node-desc{font-size:11px;opacity:.8;line-height:1.4}
+  .node-badge{font-size:9px;padding:2px 6px;border-radius:4px;font-weight:600;text-transform:uppercase;letter-spacing:.5px}
+
+  .cat-cli{background:linear-gradient(135deg,#1e3a5f,#1a365d);border-color:#2563eb}
+  .cat-cli .node-title{color:#60a5fa}
+  .cat-cli .node-badge{background:#1d4ed8;color:#bfdbfe}
+
+  .cat-cmd{background:linear-gradient(135deg,#1e3a5f,#172554);border-color:#3b82f6}
+  .cat-cmd .node-title{color:#93c5fd}
+  .cat-cmd .node-badge{background:#2563eb;color:#dbeafe}
+
+  .cat-util{background:linear-gradient(135deg,#1a2e44,#1e293b);border-color:#475569}
+  .cat-util .node-title{color:#94a3b8}
+  .cat-util .node-badge{background:#475569;color:#e2e8f0}
+
+  .cat-template{background:linear-gradient(135deg,#134e4a,#0f3d3a);border-color:#14b8a6}
+  .cat-template .node-title{color:#5eead4}
+  .cat-template .node-badge{background:#0d9488;color:#ccfbf1}
+
+  .cat-pkg{background:linear-gradient(135deg,#3b0764,#4c1d95);border-color:#8b5cf6}
+  .cat-pkg .node-title{color:#c4b5fd}
+  .cat-pkg .node-badge{background:#6d28d9;color:#ede9fe}
+
+  .cat-design{background:linear-gradient(135deg,#831843,#701a75);border-color:#ec4899}
+  .cat-design .node-title{color:#f9a8d4}
+  .cat-design .node-badge{background:#be185d;color:#fce7f3}
+
+  .cat-output{background:linear-gradient(135deg,#065f46,#064e3b);border-color:#10b981}
+  .cat-output .node-title{color:#6ee7b7}
+  .cat-output .node-badge{background:#047857;color:#d1fae5}
+
+  .cat-validate{background:linear-gradient(135deg,#78350f,#713f12);border-color:#f59e0b}
+  .cat-validate .node-title{color:#fcd34d}
+  .cat-validate .node-badge{background:#b45309;color:#fef3c7}
+
+  .cat-doc{background:linear-gradient(135deg,#1e293b,#334155);border-color:#64748b}
+  .cat-doc .node-title{color:#cbd5e1}
+  .cat-doc .node-badge{background:#475569;color:#e2e8f0}
+
+  svg.connections{position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none}
+  svg.connections path{fill:none;stroke-width:2;opacity:.5}
+  svg.connections path.flow-cli{stroke:#3b82f6}
+  svg.connections path.flow-template{stroke:#14b8a6}
+  svg.connections path.flow-pkg{stroke:#8b5cf6}
+  svg.connections path.flow-validate{stroke:#f59e0b}
+  svg.connections path.flow-output{stroke:#10b981}
+  svg.connections path.flow-design{stroke:#ec4899}
+
+  #legend{position:fixed;bottom:16px;left:16px;background:#1e293b;border:1px solid #334155;border-radius:10px;padding:14px 18px;z-index:100;font-size:11px;max-width:220px}
+  #legend h3{font-size:12px;font-weight:700;color:#f1f5f9;margin-bottom:8px}
+  .legend-item{display:flex;align-items:center;gap:8px;margin-bottom:5px}
+  .legend-dot{width:10px;height:10px;border-radius:3px;flex-shrink:0}
+  .legend-label{color:#94a3b8}
+
+  #minimap{position:fixed;bottom:16px;right:16px;width:200px;height:140px;background:#1e293b;border:1px solid #334155;border-radius:10px;z-index:100;overflow:hidden}
+  #minimap canvas{width:100%;height:100%}
+  #minimap-viewport{position:absolute;border:1.5px solid #3b82f6;border-radius:2px;pointer-events:none}
+
+  .group-label{position:absolute;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#475569;pointer-events:none}
+  .group-box{position:absolute;border:1px dashed #334155;border-radius:16px;pointer-events:none}
+</style>
+</head>
+<body>
+
+<div id="toolbar">
+  <h1>Scalix Scaffold-System</h1>
+  <span class="subtitle">Architecture Whiteboard</span>
+  <div class="toolbar-sep"></div>
+  <button class="toolbar-btn" onclick="zoomIn()">+ Zoom</button>
+  <span id="zoom-display">100%</span>
+  <button class="toolbar-btn" onclick="zoomOut()">- Zoom</button>
+  <button class="toolbar-btn" onclick="resetView()">Reset</button>
+  <button class="toolbar-btn" onclick="fitAll()">Fit All</button>
+</div>
+
+<div id="canvas-container">
+  <svg class="connections" id="svg-connections"></svg>
+  <div id="canvas"></div>
+</div>
+
+<div id="legend">
+  <h3>Legend</h3>
+  <div class="legend-item"><div class="legend-dot" style="background:#2563eb"></div><span class="legend-label">CLI Entry / Commands</span></div>
+  <div class="legend-item"><div class="legend-dot" style="background:#475569"></div><span class="legend-label">Utilities</span></div>
+  <div class="legend-item"><div class="legend-dot" style="background:#14b8a6"></div><span class="legend-label">Templates</span></div>
+  <div class="legend-item"><div class="legend-dot" style="background:#8b5cf6"></div><span class="legend-label">Packages / Plugins</span></div>
+  <div class="legend-item"><div class="legend-dot" style="background:#ec4899"></div><span class="legend-label">Design System</span></div>
+  <div class="legend-item"><div class="legend-dot" style="background:#f59e0b"></div><span class="legend-label">Validation</span></div>
+  <div class="legend-item"><div class="legend-dot" style="background:#10b981"></div><span class="legend-label">Output / Generated</span></div>
+  <div class="legend-item"><div class="legend-dot" style="background:#64748b"></div><span class="legend-label">Documentation</span></div>
+</div>
+
+<div id="minimap"><canvas id="minimap-canvas"></canvas><div id="minimap-viewport"></div></div>
+
+<script>
+const NODES = [
+  // CLI Entry
+  {id:'cli-entry', x:520, y:40, cat:'cli', title:'CLI Entry Point', desc:'index.ts - Commander program\nBinaries: scalix-world, scalix-scaffold', badge:'ENTRY'},
+
+  // Commands
+  {id:'cmd-create', x:180, y:180, cat:'cmd', title:'create <name>', desc:'Create new app from template\n--template, --directory, --yes\n6-step pipeline with progress', badge:'COMMAND'},
+  {id:'cmd-init', x:480, y:180, cat:'cmd', title:'init <template>', desc:'Initialize template in CWD\nRequires empty directory', badge:'COMMAND'},
+  {id:'cmd-list', x:740, y:180, cat:'cmd', title:'list / ls', desc:'List all available templates\nMerges remote + local', badge:'COMMAND'},
+  {id:'cmd-validate', x:980, y:180, cat:'cmd', title:'validate', desc:'Validate templates\n--template, --all, --strict', badge:'COMMAND'},
+
+  // Utilities
+  {id:'util-config', x:420, y:360, cat:'util', title:'config.ts', desc:'Template registry\n8 DEFAULT_TEMPLATES\nLocal template discovery\ngetAvailableTemplates()', badge:'UTIL'},
+  {id:'util-template', x:140, y:360, cat:'util', title:'template.ts', desc:'cloneTemplate()\nLocal fs.copy or git clone\nprocessTemplateVariables()\ninitializeGitRepo()', badge:'UTIL'},
+  {id:'util-validation', x:900, y:360, cat:'util', title:'validation.ts', desc:'validateTemplate(path)\nvalidateTemplateForUse(config)\nChecks: pkg.json, files, config,\nsrc structure, repo, deps', badge:'UTIL'},
+  {id:'util-deps', x:180, y:530, cat:'util', title:'dependencies.ts', desc:'Pre-flight checks\nNode >= 18, npm, Git\nDisk space, dir writable\nrunPreflightChecks()', badge:'UTIL'},
+  {id:'util-progress', x:420, y:530, cat:'util', title:'progress.ts', desc:'ProgressManager (ora wrapper)\nStepProgress (n/total)\nstartProgress, succeedProgress', badge:'UTIL'},
+
+  // Templates
+  {id:'tpl-react', x:80, y:720, cat:'template', title:'react/', desc:'Base React starter\nVite + TS + Tailwind\nButton, Badge, Card UI', badge:'TEMPLATE'},
+  {id:'tpl-admin', x:280, y:720, cat:'template', title:'admin-dashboard/', desc:'Enterprise dashboard\nSidebar, Overview, DataTable\nRecharts, Faker mock data', badge:'TEMPLATE'},
+  {id:'tpl-crm', x:480, y:720, cat:'template', title:'crm/', desc:'Customer relationship mgmt\nDashboard, Customers view\nDialogs, Selects, Progress', badge:'TEMPLATE'},
+  {id:'tpl-ecom', x:680, y:720, cat:'template', title:'ecommerce/', desc:'E-commerce platform\nZustand cart, React Router\nProduct/Cart/Checkout pages', badge:'TEMPLATE'},
+  {id:'tpl-analytics', x:880, y:720, cat:'template', title:'analytics-dashboard/', desc:'BI & analytics\n5 pages, Zustand, Router\nMetrics, Charts, Export', badge:'TEMPLATE'},
+
+  // Packages
+  {id:'pkg-vite-tagger', x:1080, y:500, cat:'pkg', title:'react-vite-component-tagger', desc:'Vite plugin, dev-only\nAdds data-scalix-id/name\nBabel parser + AST walk', badge:'PACKAGE'},
+  {id:'pkg-webpack-tagger', x:1080, y:650, cat:'pkg', title:'nextjs-webpack-component-tagger', desc:'Webpack loader, dev-only\nSame AST transform logic\nAsync callback-based', badge:'PACKAGE'},
+
+  // Design System
+  {id:'ds-root', x:700, y:910, cat:'design', title:'@scalix-world/design-system', desc:'Colors, Icons, Tokens, Themes\n35 palettes, 385 colors\n80+ icons, 6 themes', badge:'PACKAGE'},
+  {id:'ds-colors', x:500, y:1060, cat:'design', title:'colors/', desc:'35 color palettes x 11 shades\n7 collections: primary, trends,\nnature, brands, emotions...', badge:'MODULE'},
+  {id:'ds-icons', x:700, y:1060, cat:'design', title:'icons/', desc:'80+ Lucide re-exports\n11 categories, <Icon> component\niconUtils search/filter', badge:'MODULE'},
+  {id:'ds-tokens', x:900, y:1060, cat:'design', title:'tokens/', desc:'Spacing, fontSize, fontWeight\nborderRadius, shadows, zIndex\nbreakpoints, animations', badge:'MODULE'},
+  {id:'ds-themes', x:1100, y:1060, cat:'design', title:'themes/', desc:'6 themes: light, dark, business\nconsumer, ecommerce, analytics\nCSS variable generation', badge:'MODULE'},
+
+  // Variable Replacement
+  {id:'var-replace', x:140, y:530, cat:'output', title:'Variable Replacement', desc:'{{project-name}} -> kebab\n{{PROJECT_NAME}} -> UPPER\n{{ProjectName}} -> PascalCase', badge:'PROCESS'},
+
+  // Output
+  {id:'output-app', x:380, y:900, cat:'output', title:'Generated App', desc:'Complete project with\nreplaced variables, ready for\nnpm install && npm run dev', badge:'OUTPUT'},
+
+  // Docs
+  {id:'docs', x:1100, y:180, cat:'doc', title:'docs/', desc:'setup-guide.md\ncreating-templates.md\ndev-tools.md', badge:'DOCS'},
+
+  // Template Config Shape
+  {id:'tpl-config', x:660, y:360, cat:'validate', title:'TemplateConfig', desc:'id, name, description\nrepository, branch, tags\npostInstall instructions', badge:'TYPE'},
+
+  // Validation Checks
+  {id:'val-checks', x:900, y:530, cat:'validate', title:'Validation Checks', desc:'package.json fields\nscalixTemplate config\nRequired/recommended files\nConfig syntax, src structure', badge:'CHECKS'},
+];
+
+const CONNECTIONS = [
+  // CLI Entry -> Commands
+  {from:'cli-entry', to:'cmd-create', cls:'flow-cli'},
+  {from:'cli-entry', to:'cmd-init', cls:'flow-cli'},
+  {from:'cli-entry', to:'cmd-list', cls:'flow-cli'},
+  {from:'cli-entry', to:'cmd-validate', cls:'flow-cli'},
+
+  // Create -> Utilities
+  {from:'cmd-create', to:'util-template', cls:'flow-cli'},
+  {from:'cmd-create', to:'util-config', cls:'flow-cli'},
+  {from:'cmd-create', to:'util-deps', cls:'flow-cli'},
+  {from:'cmd-create', to:'util-progress', cls:'flow-cli'},
+  {from:'cmd-create', to:'util-validation', cls:'flow-validate'},
+
+  // Init -> Utilities
+  {from:'cmd-init', to:'util-template', cls:'flow-cli'},
+  {from:'cmd-init', to:'util-config', cls:'flow-cli'},
+
+  // List -> Config
+  {from:'cmd-list', to:'util-config', cls:'flow-cli'},
+
+  // Validate -> Utilities
+  {from:'cmd-validate', to:'util-validation', cls:'flow-validate'},
+  {from:'cmd-validate', to:'util-config', cls:'flow-validate'},
+
+  // Config -> Templates
+  {from:'util-config', to:'tpl-react', cls:'flow-template'},
+  {from:'util-config', to:'tpl-admin', cls:'flow-template'},
+  {from:'util-config', to:'tpl-crm', cls:'flow-template'},
+  {from:'util-config', to:'tpl-ecom', cls:'flow-template'},
+  {from:'util-config', to:'tpl-analytics', cls:'flow-template'},
+  {from:'util-config', to:'tpl-config', cls:'flow-validate'},
+
+  // Template util -> variable replace
+  {from:'util-template', to:'var-replace', cls:'flow-output'},
+
+  // Template util -> output
+  {from:'util-template', to:'output-app', cls:'flow-output'},
+  {from:'var-replace', to:'output-app', cls:'flow-output'},
+
+  // Validation -> checks
+  {from:'util-validation', to:'val-checks', cls:'flow-validate'},
+
+  // Packages -> Templates (used by)
+  {from:'pkg-vite-tagger', to:'tpl-react', cls:'flow-pkg'},
+  {from:'pkg-vite-tagger', to:'tpl-admin', cls:'flow-pkg'},
+  {from:'pkg-vite-tagger', to:'tpl-crm', cls:'flow-pkg'},
+  {from:'pkg-vite-tagger', to:'tpl-ecom', cls:'flow-pkg'},
+  {from:'pkg-vite-tagger', to:'tpl-analytics', cls:'flow-pkg'},
+
+  // Design System -> modules
+  {from:'ds-root', to:'ds-colors', cls:'flow-design'},
+  {from:'ds-root', to:'ds-icons', cls:'flow-design'},
+  {from:'ds-root', to:'ds-tokens', cls:'flow-design'},
+  {from:'ds-root', to:'ds-themes', cls:'flow-design'},
+
+  // CLI -> docs
+  {from:'cli-entry', to:'docs', cls:'flow-cli'},
+];
+
+// State
+let scale = 0.85, panX = 50, panY = 10;
+let isDragging = false, dragTarget = null, dragStartX = 0, dragStartY = 0;
+let isPanning = false, panStartX = 0, panStartY = 0;
+let selectedNode = null;
+
+const canvas = document.getElementById('canvas');
+const container = document.getElementById('canvas-container');
+const svgEl = document.getElementById('svg-connections');
+
+function createNodes() {
+  NODES.forEach(n => {
+    const el = document.createElement('div');
+    el.className = `node cat-${n.cat}`;
+    el.id = `node-${n.id}`;
+    el.style.left = n.x + 'px';
+    el.style.top = n.y + 'px';
+    el.innerHTML = `
+      <div class="node-title"><span class="node-badge">${n.badge}</span>${n.title}</div>
+      <div class="node-desc">${n.desc.replace(/\n/g,'<br>')}</div>
+    `;
+    el.addEventListener('mousedown', e => startDragNode(e, n));
+    el.addEventListener('touchstart', e => startDragNode(e.touches[0], n), {passive:false});
+    canvas.appendChild(el);
+  });
+}
+
+function getNodeCenter(id) {
+  const el = document.getElementById(`node-${id}`);
+  if (!el) return {x:0,y:0};
+  const n = NODES.find(n => n.id === id);
+  return {x: n.x + el.offsetWidth/2, y: n.y + el.offsetHeight/2};
+}
+
+function drawConnections() {
+  let paths = '';
+  CONNECTIONS.forEach(c => {
+    const f = getNodeCenter(c.from);
+    const t = getNodeCenter(c.to);
+    const dx = t.x - f.x;
+    const dy = t.y - f.y;
+    const cx1 = f.x + dx * 0.3;
+    const cy1 = f.y + dy * 0.05;
+    const cx2 = f.x + dx * 0.7;
+    const cy2 = t.y - dy * 0.05;
+    paths += `<path class="${c.cls}" d="M${f.x},${f.y} C${cx1},${cy1} ${cx2},${cy2} ${t.x},${t.y}"/>`;
+  });
+  svgEl.innerHTML = paths;
+  svgEl.setAttribute('viewBox', `-100 -100 2400 1600`);
+  svgEl.style.width = '2400px';
+  svgEl.style.height = '1600px';
+}
+
+function applyTransform() {
+  canvas.style.transform = `translate(${panX}px,${panY}px) scale(${scale})`;
+  svgEl.style.transform = `translate(${panX}px,${panY}px) scale(${scale})`;
+  document.getElementById('zoom-display').textContent = Math.round(scale * 100) + '%';
+  updateMinimap();
+}
+
+function startDragNode(e, node) {
+  e.stopPropagation();
+  dragTarget = node;
+  const el = document.getElementById(`node-${node.id}`);
+  dragStartX = (e.clientX - panX) / scale - node.x;
+  dragStartY = (e.clientY - panY - 56) / scale - node.y;
+  if (selectedNode) document.getElementById(`node-${selectedNode}`).classList.remove('selected');
+  selectedNode = node.id;
+  el.classList.add('selected');
+}
+
+container.addEventListener('mousedown', e => {
+  if (e.target === container || e.target === svgEl) {
+    isPanning = true;
+    panStartX = e.clientX - panX;
+    panStartY = e.clientY - panY;
+    container.classList.add('dragging');
+  }
+});
+
+window.addEventListener('mousemove', e => {
+  if (dragTarget) {
+    const nx = (e.clientX - panX) / scale - dragStartX;
+    const ny = (e.clientY - panY - 56) / scale - dragStartY;
+    dragTarget.x = nx;
+    dragTarget.y = ny;
+    const el = document.getElementById(`node-${dragTarget.id}`);
+    el.style.left = nx + 'px';
+    el.style.top = ny + 'px';
+    drawConnections();
+  }
+  if (isPanning) {
+    panX = e.clientX - panStartX;
+    panY = e.clientY - panStartY;
+    applyTransform();
+  }
+});
+
+window.addEventListener('mouseup', () => {
+  dragTarget = null;
+  isPanning = false;
+  container.classList.remove('dragging');
+});
+
+// Touch support
+container.addEventListener('touchstart', e => {
+  if (e.target === container || e.target === svgEl) {
+    isPanning = true;
+    panStartX = e.touches[0].clientX - panX;
+    panStartY = e.touches[0].clientY - panY;
+  }
+}, {passive:false});
+
+window.addEventListener('touchmove', e => {
+  if (dragTarget) {
+    e.preventDefault();
+    const touch = e.touches[0];
+    const nx = (touch.clientX - panX) / scale - dragStartX;
+    const ny = (touch.clientY - panY - 56) / scale - dragStartY;
+    dragTarget.x = nx;
+    dragTarget.y = ny;
+    const el = document.getElementById(`node-${dragTarget.id}`);
+    el.style.left = nx + 'px';
+    el.style.top = ny + 'px';
+    drawConnections();
+  }
+  if (isPanning) {
+    panX = e.touches[0].clientX - panStartX;
+    panY = e.touches[0].clientY - panStartY;
+    applyTransform();
+  }
+}, {passive:false});
+
+window.addEventListener('touchend', () => {
+  dragTarget = null;
+  isPanning = false;
+});
+
+// Zoom
+container.addEventListener('wheel', e => {
+  e.preventDefault();
+  const rect = container.getBoundingClientRect();
+  const mx = e.clientX - rect.left;
+  const my = e.clientY - rect.top;
+  const delta = e.deltaY > 0 ? 0.92 : 1.08;
+  const newScale = Math.max(0.15, Math.min(3, scale * delta));
+  panX = mx - (mx - panX) * (newScale / scale);
+  panY = my - (my - panY) * (newScale / scale);
+  scale = newScale;
+  applyTransform();
+}, {passive:false});
+
+function zoomIn() { scale = Math.min(3, scale * 1.15); applyTransform(); }
+function zoomOut() { scale = Math.max(0.15, scale * 0.87); applyTransform(); }
+function resetView() { scale = 0.85; panX = 50; panY = 10; applyTransform(); }
+
+function fitAll() {
+  if (NODES.length === 0) return;
+  let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
+  NODES.forEach(n => {
+    const el = document.getElementById(`node-${n.id}`);
+    const w = el ? el.offsetWidth : 160;
+    const h = el ? el.offsetHeight : 80;
+    if (n.x < minX) minX = n.x;
+    if (n.y < minY) minY = n.y;
+    if (n.x + w > maxX) maxX = n.x + w;
+    if (n.y + h > maxY) maxY = n.y + h;
+  });
+  const pad = 60;
+  minX -= pad; minY -= pad; maxX += pad; maxY += pad;
+  const cw = container.offsetWidth;
+  const ch = container.offsetHeight;
+  const sw = cw / (maxX - minX);
+  const sh = ch / (maxY - minY);
+  scale = Math.min(sw, sh, 1.2);
+  panX = (cw - (maxX - minX) * scale) / 2 - minX * scale;
+  panY = (ch - (maxY - minY) * scale) / 2 - minY * scale;
+  applyTransform();
+}
+
+// Minimap
+function updateMinimap() {
+  const mc = document.getElementById('minimap-canvas');
+  const ctx = mc.getContext('2d');
+  const mw = 200, mh = 140;
+  mc.width = mw; mc.height = mh;
+  ctx.clearRect(0, 0, mw, mh);
+
+  if (NODES.length === 0) return;
+  let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
+  NODES.forEach(n => {
+    if (n.x < minX) minX = n.x;
+    if (n.y < minY) minY = n.y;
+    if (n.x + 160 > maxX) maxX = n.x + 160;
+    if (n.y + 60 > maxY) maxY = n.y + 60;
+  });
+  const pad = 40;
+  minX -= pad; minY -= pad; maxX += pad; maxY += pad;
+  const sx = mw / (maxX - minX);
+  const sy = mh / (maxY - minY);
+  const s = Math.min(sx, sy);
+
+  const catColors = {cli:'#2563eb',cmd:'#3b82f6',util:'#475569',template:'#14b8a6',pkg:'#8b5cf6',design:'#ec4899',output:'#10b981',validate:'#f59e0b',doc:'#64748b'};
+
+  NODES.forEach(n => {
+    const nx = (n.x - minX) * s;
+    const ny = (n.y - minY) * s;
+    ctx.fillStyle = catColors[n.cat] || '#475569';
+    ctx.fillRect(nx, ny, Math.max(6, 140 * s), Math.max(4, 40 * s));
+  });
+
+  // Viewport indicator
+  const vp = document.getElementById('minimap-viewport');
+  const cw = container.offsetWidth;
+  const ch = container.offsetHeight;
+  const vl = (-panX / scale - minX) * s;
+  const vt = ((-panY + 56) / scale - minY) * s;
+  const vw = (cw / scale) * s;
+  const vh = (ch / scale) * s;
+  vp.style.left = Math.max(0, vl) + 'px';
+  vp.style.top = Math.max(0, vt) + 'px';
+  vp.style.width = Math.min(mw, vw) + 'px';
+  vp.style.height = Math.min(mh, vh) + 'px';
+}
+
+// Group boxes
+function addGroupBoxes() {
+  const groups = [
+    {label:'CLI COMMANDS', x:140, y:150, w:920, h:90, color:'#3b82f6'},
+    {label:'UTILITIES', x:100, y:320, w:880, h:260, color:'#475569'},
+    {label:'LOCAL TEMPLATES', x:40, y:680, w:940, h:100, color:'#14b8a6'},
+    {label:'DESIGN SYSTEM MODULES', x:460, y:1020, w:740, h:110, color:'#ec4899'},
+  ];
+  groups.forEach(g => {
+    const label = document.createElement('div');
+    label.className = 'group-label';
+    label.style.left = (g.x + 8) + 'px';
+    label.style.top = (g.y - 16) + 'px';
+    label.style.color = g.color;
+    label.textContent = g.label;
+    canvas.appendChild(label);
+
+    const box = document.createElement('div');
+    box.className = 'group-box';
+    box.style.left = g.x + 'px';
+    box.style.top = g.y + 'px';
+    box.style.width = g.w + 'px';
+    box.style.height = g.h + 'px';
+    box.style.borderColor = g.color + '40';
+    canvas.appendChild(box);
+  });
+}
+
+// Init
+createNodes();
+addGroupBoxes();
+requestAnimationFrame(() => {
+  drawConnections();
+  applyTransform();
+  setTimeout(fitAll, 100);
+});
+
+// Keyboard shortcuts
+window.addEventListener('keydown', e => {
+  if (e.key === '=' || e.key === '+') zoomIn();
+  if (e.key === '-') zoomOut();
+  if (e.key === '0') resetView();
+  if (e.key === 'f') fitAll();
+});
+</script>
+</body>
+</html>

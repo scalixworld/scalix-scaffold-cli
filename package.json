@@ -1,0 +1,45 @@
+{
+  "name": "@scalix-world/scaffold",
+  "version": "0.1.0",
+  "description": "Scalix World Scaffold System - Template-based app creation for Scalix World applications",
+  "main": "cli/index.js",
+  "bin": {
+    "scalix-world": "./cli/index.js",
+    "scalix-scaffold": "./cli/index.js"
+  },
+  "scripts": {
+    "build": "npm run build --workspaces",
+    "test": "npm run test --workspaces",
+    "lint": "npm run lint --workspaces",
+    "clean": "rm -rf node_modules packages/*/node_modules cli/dist templates/*/node_modules",
+    "dev": "npm run dev --workspace=@scalix-world/scaffold-cli",
+    "publish-all": "npm run publish --workspaces"
+  },
+  "workspaces": [
+    "cli",
+    "packages/*"
+  ],
+  "keywords": [
+    "scalix",
+    "scaffold",
+    "templates",
+    "generator",
+    "cli"
+  ],
+  "author": "Scalix World",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/scalix-world/scalix/scaffold.git"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "typescript": "^5.0.0",
+    "rimraf": "^5.0.0",
+    "prettier": "^3.0.0",
+    "eslint": "^8.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
