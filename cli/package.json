@@ -22,7 +22,7 @@
     "templates"
   ],
   "author": "Scalix World",
-  "license": "MIT",
+  "license": "SEE LICENSE IN LICENSE",
   "dependencies": {
     "commander": "^11.0.0",
     "chalk": "^5.0.0",
