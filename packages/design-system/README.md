@@ -1,4 +1,4 @@
-# @scalix-world/design-system
+# @scalix/design-system
 
 **The Most Comprehensive Design System for Scalix World Applications**
 

@@ -30,7 +30,7 @@ Welcome to the comprehensive documentation for the Scalix Scaffold System!
 
 ```
 Scalix Scaffold System
-├── CLI Tool (@scalix-world/scaffold-cli)
+├── CLI Tool (@scalix/scaffold-cli)
 │   ├── Create apps from templates
 │   ├── List available templates
 │   └── Initialize templates
