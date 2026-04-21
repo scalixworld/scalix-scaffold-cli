@@ -1,15 +1,15 @@
-# @scalix-ai/react-vite-component-tagger
+# @scalix-world/react-vite-component-tagger
 
 A Vite plugin that automatically adds `data-scalix-id` and `data-scalix-name` attributes to your React components. This is useful for identifying components in the DOM, for example for testing or analytics.
 
 ## Installation
 
 ```bash
-npm install @scalix-ai/react-vite-component-tagger
+npm install @scalix-world/react-vite-component-tagger
 # or
-yarn add @scalix-ai/react-vite-component-tagger
+yarn add @scalix-world/react-vite-component-tagger
 # or
-pnpm add @scalix-ai/react-vite-component-tagger
+pnpm add @scalix-world/react-vite-component-tagger
 ```
 
 ## Usage
@@ -19,7 +19,7 @@ Add the plugin to your `vite.config.ts` file:
 ```ts
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
-import scalixComponentTagger from "@scalix-ai/react-vite-component-tagger";
+import scalixComponentTagger from "@scalix-world/react-vite-component-tagger";
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -40,13 +40,13 @@ Bump it to an alpha version and test in Scalix app, eg. `"version": "0.0.1-alpha
 Then publish it:
 
 ```sh
-cd packages/@scalix-ai/react-vite-component-tagger/ && npm run prepublishOnly && npm publish
+cd packages/@scalix-world/react-vite-component-tagger/ && npm run prepublishOnly && npm publish
 ```
 
 Update the scaffold like this:
 
 ```sh
-cd scaffold && pnpm remove @scalix-ai/react-vite-component-tagger && pnpm add -D @scalix-ai/react-vite-component-tagger
+cd scaffold && pnpm remove @scalix-world/react-vite-component-tagger && pnpm add -D @scalix-world/react-vite-component-tagger
 ```
 
 Run the E2E tests and make sure it passes.

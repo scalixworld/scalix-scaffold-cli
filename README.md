@@ -24,7 +24,7 @@ INTERNAL/Scaffold-System/
 │   ├── react/             # React template
 │   ├── nextjs/            # Next.js template
 │   └── ...
-├── packages/               # Shared packages (@scalix-ai/*)
+├── packages/               # Shared packages (@scalix-world/*)
 ├── generators/             # Code generators
 └── docs/                   # Documentation
 ```
@@ -148,17 +148,17 @@ Use placeholders in template files that get replaced during creation:
 
 ## 🔧 Development Tools
 
-The scaffold system includes development tools under `@scalix-ai/*` packages:
+The scaffold system includes development tools under `@scalix-world/*` packages:
 
 ### Available Tools
 
-- `@scalix-ai/react-vite-component-tagger` - Component tagging for React/Vite apps
-- `@scalix-ai/nextjs-webpack-component-tagger` - Component tagging for Next.js apps
+- `@scalix-world/react-vite-component-tagger` - Component tagging for React/Vite apps
+- `@scalix-world/nextjs-webpack-component-tagger` - Component tagging for Next.js apps
 
 ### Using Dev Tools
 
 ```bash
-npm install @scalix-ai/react-vite-component-tagger --save-dev
+npm install @scalix-world/react-vite-component-tagger --save-dev
 ```
 
 ## 🚢 Deployment

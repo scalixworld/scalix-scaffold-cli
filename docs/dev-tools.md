@@ -1,14 +1,14 @@
-# Development Tools (@scalix-ai/*)
+# Development Tools (@scalix-world/*)
 
-This document covers the development tools provided by the Scalix Scaffold System under the `@scalix-ai/*` namespace.
+This document covers the development tools provided by the Scalix Scaffold System under the `@scalix-world/*` namespace.
 
 ## Overview
 
-The `@scalix-ai/*` packages are specialized development tools designed to enhance the development experience for Scalix applications. These tools are separate from the main application runtime and are intended for build-time use.
+The `@scalix-world/*` packages are specialized development tools designed to enhance the development experience for Scalix applications. These tools are separate from the main application runtime and are intended for build-time use.
 
 ## Available Tools
 
-### @scalix-ai/react-vite-component-tagger
+### @scalix-world/react-vite-component-tagger
 
 A development tool for tagging React components in Vite-based applications.
 
@@ -22,7 +22,7 @@ A development tool for tagging React components in Vite-based applications.
 #### Installation
 
 ```bash
-npm install @scalix-ai/react-vite-component-tagger --save-dev
+npm install @scalix-world/react-vite-component-tagger --save-dev
 ```
 
 #### Usage
@@ -31,7 +31,7 @@ npm install @scalix-ai/react-vite-component-tagger --save-dev
 // vite.config.ts
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
-import { componentTagger } from '@scalix-ai/react-vite-component-tagger';
+import { componentTagger } from '@scalix-world/react-vite-component-tagger';
 
 export default defineConfig({
   plugins: [
@@ -57,7 +57,7 @@ interface ComponentTaggerOptions {
 }
 ```
 
-### @scalix-ai/nextjs-webpack-component-tagger
+### @scalix-world/nextjs-webpack-component-tagger
 
 Similar functionality for Next.js applications using Webpack.
 
@@ -71,14 +71,14 @@ Similar functionality for Next.js applications using Webpack.
 #### Installation
 
 ```bash
-npm install @scalix-ai/nextjs-webpack-component-tagger --save-dev
+npm install @scalix-world/nextjs-webpack-component-tagger --save-dev
 ```
 
 #### Usage
 
 ```javascript
 // next.config.js
-const { componentTagger } = require('@scalix-ai/nextjs-webpack-component-tagger');
+const { componentTagger } = require('@scalix-world/nextjs-webpack-component-tagger');
 
 module.exports = {
   webpack: (config, { dev }) => {
@@ -116,7 +116,7 @@ Development tools are kept separate from application runtime to:
 ### Tool Structure
 
 ```
-packages/@scalix-ai/tool-name/
+packages/@scalix-world/tool-name/
 ├── src/
 │   ├── index.ts          # Main export
 │   ├── plugin.ts         # Build tool integration
@@ -131,7 +131,7 @@ packages/@scalix-ai/tool-name/
 
 ```json
 {
-  "name": "@scalix-ai/tool-name",
+  "name": "@scalix-world/tool-name",
   "version": "1.0.0",
   "description": "Description of the development tool",
   "main": "dist/index.js",
@@ -178,7 +178,7 @@ export function createToolPlugin(options: ToolOptions = {}): Plugin {
   const { enabled = true } = options;
 
   return {
-    name: '@scalix-ai/tool-name',
+    name: '@scalix-world/tool-name',
     enforce: 'pre',
 
     config(config) {
@@ -220,7 +220,7 @@ export class ToolWebpackPlugin {
   apply(compiler: Compiler) {
     if (!this.options.enabled) return;
 
-    compiler.hooks.compilation.tap('@scalix-ai/tool-name', (compilation) => {
+    compiler.hooks.compilation.tap('@scalix-world/tool-name', (compilation) => {
       // Webpack compilation logic
     });
   }
@@ -314,7 +314,7 @@ Comprehensive testing strategy:
 // __tests__/plugin.test.ts
 import { createToolPlugin } from '../src/plugin';
 
-describe('@scalix-ai/tool-name', () => {
+describe('@scalix-world/tool-name', () => {
   test('should transform code correctly', () => {
     const plugin = createToolPlugin();
     // Test plugin functionality
@@ -332,8 +332,8 @@ Templates can specify dev tools:
 {
   "scalixTemplate": {
     "devTools": [
-      "@scalix-ai/react-vite-component-tagger",
-      "@scalix-ai/nextjs-webpack-component-tagger"
+      "@scalix-world/react-vite-component-tagger",
+      "@scalix-world/nextjs-webpack-component-tagger"
     ]
   }
 }
@@ -348,7 +348,7 @@ Templates can include tool configuration:
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 /// #if DEV_TOOLS
-import { componentTagger } from '@scalix-ai/react-vite-component-tagger';
+import { componentTagger } from '@scalix-world/react-vite-component-tagger';
 /// #endif
 
 export default defineConfig({
@@ -399,7 +399,7 @@ export function createToolPlugin(options: ToolOptions = {}): Plugin {
   const isDev = process.env.NODE_ENV === 'development';
 
   return {
-    name: '@scalix-ai/tool-name',
+    name: '@scalix-world/tool-name',
     transform(code, id) {
       if (!isDev) return null;
       // Transform logic
@@ -431,7 +431,7 @@ export function createToolPlugin(options: ToolOptions = {}): Plugin {
   const cache = new Map();
 
   return {
-    name: '@scalix-ai/tool-name',
+    name: '@scalix-world/tool-name',
     transform(code, id) {
       if (cache.has(id)) return cache.get(id);
 
@@ -447,10 +447,10 @@ export function createToolPlugin(options: ToolOptions = {}): Plugin {
 
 ### Planned Tools
 
-- **@scalix-ai/component-storybook-generator**: Automatic Storybook setup
-- **@scalix-ai/api-mock-generator**: Development API mocking
-- **@scalix-ai/performance-profiler**: Build-time performance analysis
-- **@scalix-ai/dependency-analyzer**: Bundle dependency visualization
+- **@scalix-world/component-storybook-generator**: Automatic Storybook setup
+- **@scalix-world/api-mock-generator**: Development API mocking
+- **@scalix-world/performance-profiler**: Build-time performance analysis
+- **@scalix-world/dependency-analyzer**: Bundle dependency visualization
 
 ### Tool Ecosystem
 

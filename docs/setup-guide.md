@@ -155,7 +155,7 @@ npm run dev
 
 1. **Build package**
    ```bash
-   cd packages/@scalix-ai/tool-name
+   cd packages/@scalix-world/tool-name
    npm run build
    ```
 
@@ -175,7 +175,7 @@ Ensure packages have proper configuration:
 
 ```json
 {
-  "name": "@scalix-ai/tool-name",
+  "name": "@scalix-world/tool-name",
   "version": "1.0.0",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

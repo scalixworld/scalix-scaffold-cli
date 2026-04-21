@@ -58,8 +58,8 @@ Scaffold-System/
 |
 |-- packages/                 # Shared npm packages
 |   |-- design-system/        # @scalix/design-system
-|   |-- react-vite-component-tagger/    # @scalix-ai/react-vite-component-tagger
-|   |-- nextjs-webpack-component-tagger/ # @scalix-ai/nextjs-webpack-component-tagger
+|   |-- react-vite-component-tagger/    # @scalix-world/react-vite-component-tagger
+|   |-- nextjs-webpack-component-tagger/ # @scalix-world/nextjs-webpack-component-tagger
 |
 |-- templates/                # Project templates (local)
 |   |-- react/                # Base React starter
@@ -169,7 +169,7 @@ All local templates share a common stack:
 - Radix UI primitives for accessible components
 - Lucide React for icons
 - class-variance-authority + clsx + tailwind-merge for styling
-- `@scalix-ai/react-vite-component-tagger` as devDependency
+- `@scalix-world/react-vite-component-tagger` as devDependency
 
 **react/** - Minimal starter with button, badge, card UI components
 
@@ -198,7 +198,7 @@ All local templates share a common stack:
 **Build:** tsup (CJS + ESM + .d.ts)
 **Peer deps:** React 18, lucide-react 0.469.0
 
-### 6.2 @scalix-ai/react-vite-component-tagger (packages/react-vite-component-tagger/)
+### 6.2 @scalix-world/react-vite-component-tagger (packages/react-vite-component-tagger/)
 **Purpose:** Vite plugin that adds `data-scalix-id` and `data-scalix-name` attributes to JSX elements during development for debugging/component identification.
 
 **How it works:**
@@ -211,7 +211,7 @@ All local templates share a common stack:
 
 **Build:** tsup (CJS + ESM + .d.ts)
 
-### 6.3 @scalix-ai/nextjs-webpack-component-tagger (packages/nextjs-webpack-component-tagger/)
+### 6.3 @scalix-world/nextjs-webpack-component-tagger (packages/nextjs-webpack-component-tagger/)
 **Purpose:** Identical functionality to the Vite tagger but implemented as a webpack loader for Next.js projects.
 
 **Differences from Vite version:**

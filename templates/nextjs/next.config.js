@@ -9,7 +9,7 @@ const nextConfig = {
         test: /\.(jsx|tsx)$/,
         exclude: /node_modules/,
         enforce: 'pre',
-        use: '@scalix-ai/nextjs-webpack-component-tagger',
+        use: '@scalix-world/nextjs-webpack-component-tagger',
       });
     }
     return config;

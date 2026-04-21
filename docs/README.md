@@ -37,7 +37,7 @@ Scalix Scaffold System
 ├── Templates
 │   ├── React, Vue, Next.js, Svelte
 │   └── Custom project starters
-├── Dev Tools (@scalix-ai/*)
+├── Dev Tools (@scalix-world/*)
 │   ├── Component taggers
 │   ├── Build enhancers
 │   └── Development utilities
