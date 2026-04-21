@@ -11,7 +11,7 @@
     "test": "npm run test --workspaces",
     "lint": "npm run lint --workspaces",
     "clean": "rm -rf node_modules packages/*/node_modules cli/dist templates/*/node_modules",
-    "dev": "npm run dev --workspace=@scalix-world/scaffold-cli",
+    "dev": "npm run dev --workspace=@scalix/scaffold-cli",
     "publish-all": "npm run publish --workspaces"
   },
   "workspaces": [
@@ -29,7 +29,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/scalix-world/scalix/scaffold.git"
+    "url": "https://github.com/scalix-world/scaffold-cli.git"
   },
   "devDependencies": {
     "@types/node": "^20.0.0",
