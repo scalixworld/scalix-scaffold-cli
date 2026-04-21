@@ -1,10 +1,9 @@
 {
-  "name": "@scalix-world/scaffold",
+  "name": "@scalix/scaffold-cli",
   "version": "0.1.0",
-  "description": "Scalix World Scaffold System - Template-based app creation for Scalix World applications",
+  "description": "Scalix Scaffold CLI - Create new applications from pre-built templates",
   "main": "cli/index.js",
   "bin": {
-    "scalix-world": "./cli/index.js",
     "scalix-scaffold": "./cli/index.js"
   },
   "scripts": {
@@ -26,7 +25,7 @@
     "generator",
     "cli"
   ],
-  "author": "Scalix World",
+  "author": "Scalix <dev@scalix.world>",
   "license": "MIT",
   "repository": {
     "type": "git",
