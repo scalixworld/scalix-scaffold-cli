@@ -4,7 +4,7 @@
 
 The Scalix Scaffold-System is an internal project scaffolding tool that generates new Scalix World applications from pre-built templates via a CLI. It is an npm workspaces monorepo containing the CLI, shared packages (design system, component taggers), and template directories. Each template is a fully configured React + Vite + TypeScript + Tailwind CSS application that can be cloned locally or from a remote Git repository.
 
-**Package name:** `@scalix/scaffold`
+**Package name:** `@scalix-world/scaffold`
 **Version:** 0.1.0
 **Binary names:** `scalix-world`, `scalix-scaffold`
 **Node.js requirement:** >= 18.0.0
@@ -57,7 +57,7 @@ Scaffold-System/
 |           |-- progress.ts   # Spinner/step progress UI
 |
 |-- packages/                 # Shared npm packages
-|   |-- design-system/        # @scalix/design-system
+|   |-- design-system/        # @scalix-world/design-system
 |   |-- react-vite-component-tagger/    # @scalix-world/react-vite-component-tagger
 |   |-- nextjs-webpack-component-tagger/ # @scalix-world/nextjs-webpack-component-tagger
 |
@@ -185,7 +185,7 @@ All local templates share a common stack:
 
 ## 6. Shared Packages
 
-### 6.1 @scalix/design-system (packages/design-system/)
+### 6.1 @scalix-world/design-system (packages/design-system/)
 **Purpose:** Comprehensive design token and theming library for all Scalix templates.
 
 **Exports:**

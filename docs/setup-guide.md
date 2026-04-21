@@ -256,7 +256,7 @@ For monorepo usage, the scaffold system can be included as:
    ```json
    {
      "dependencies": {
-       "@scalix/scaffold-cli": "workspace:*"
+       "@scalix-world/scaffold-cli": "workspace:*"
      }
    }
    ```
@@ -267,7 +267,7 @@ For monorepo usage, the scaffold system can be included as:
 
 ```bash
 # Install CLI globally
-npm install -g @scalix/scaffold-cli
+npm install -g @scalix-world/scaffold-cli
 
 # Use CLI
 scalix-scaffold create my-app --template react
@@ -277,7 +277,7 @@ scalix-scaffold create my-app --template react
 
 ```bash
 # Install in project
-npm install @scalix/scaffold-cli --save-dev
+npm install @scalix-world/scaffold-cli --save-dev
 
 # Use via npx
 npx scalix-scaffold create my-app --template react
@@ -298,7 +298,7 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: '18'
-      - run: npm install -g @scalix/scaffold-cli
+      - run: npm install -g @scalix-world/scaffold-cli
       - run: scalix-scaffold create my-app --template react --yes
       - run: cd my-app && npm install && npm run build
 ```
@@ -314,10 +314,10 @@ jobs:
 **Solutions**:
 ```bash
 # Install globally
-npm install -g @scalix/scaffold-cli
+npm install -g @scalix-world/scaffold-cli
 
 # Or use npx
-npx @scalix/scaffold-cli create my-app --template react
+npx @scalix-world/scaffold-cli create my-app --template react
 
 # Or link locally
 cd cli && npm link

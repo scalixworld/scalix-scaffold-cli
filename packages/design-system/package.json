@@ -1,5 +1,5 @@
 {
-  "name": "@scalix/design-system",
+  "name": "@scalix-world/design-system",
   "version": "1.0.0",
   "description": "Comprehensive design system with modern icons and color schemes for Scalix templates",
   "main": "dist/index.js",

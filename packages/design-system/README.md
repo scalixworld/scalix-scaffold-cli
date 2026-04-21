@@ -1,4 +1,4 @@
-# @scalix/design-system
+# @scalix-world/design-system
 
 **The Most Comprehensive Design System for Scalix World Applications**
 
@@ -47,7 +47,7 @@ A production-ready design system featuring **385 colors** across **35 palettes**
 
 ```bash
 # Install the design system package
-npm install @scalix/design-system
+npm install @scalix-world/design-system
 
 # Peer dependencies (already included in templates)
 npm install react lucide-react
@@ -58,7 +58,7 @@ npm install react lucide-react
 ### **Colors**
 
 ```typescript
-import { modernColors, semanticColors, themeColors } from '@scalix/design-system'
+import { modernColors, semanticColors, themeColors } from '@scalix-world/design-system'
 
 // Access color scales
 const primaryColor = modernColors.blue[500]        // #3b82f6
@@ -71,7 +71,7 @@ const backgroundColor = themeColors.business.background  // Professional theme
 ### **Icons**
 
 ```typescript
-import { icons, Icon, iconUtils } from '@scalix/design-system'
+import { icons, Icon, iconUtils } from '@scalix-world/design-system'
 
 // Direct icon usage
 const HomeIcon = icons.home
@@ -87,7 +87,7 @@ const statusIcons = iconUtils.getStatusIcons()
 ### **Design Tokens**
 
 ```typescript
-import { spacing, fontSize, borderRadius, shadows } from '@scalix/design-system'
+import { spacing, fontSize, borderRadius, shadows } from '@scalix-world/design-system'
 
 // Use in components
 <div style={{
@@ -103,7 +103,7 @@ import { spacing, fontSize, borderRadius, shadows } from '@scalix/design-system'
 ### **Themes**
 
 ```typescript
-import { themes, themeUtils } from '@scalix/design-system'
+import { themes, themeUtils } from '@scalix-world/design-system'
 
 // Apply a theme
 themeUtils.applyTheme('dark')
@@ -446,7 +446,7 @@ shadows.inner   // Inner shadow
 
 ### **Available Themes**
 ```typescript
-import { themes } from '@scalix/design-system'
+import { themes } from '@scalix-world/design-system'
 
 themes.light      // Clean, bright theme
 themes.dark       // Dark mode theme
@@ -508,7 +508,7 @@ const customTheme: Theme = {
 
 ### **Color Utilities**
 ```typescript
-import { colorUtils } from '@scalix/design-system'
+import { colorUtils } from '@scalix-world/design-system'
 
 // Add opacity to colors
 const transparentBlue = colorUtils.withOpacity('#3b82f6', 0.5)
@@ -526,7 +526,7 @@ const hasGoodContrast = colorUtils.meetsContrastRatio('#000000', '#ffffff', 4.5)
 
 ### **Token Utilities**
 ```typescript
-import { tokenUtils } from '@scalix/design-system'
+import { tokenUtils } from '@scalix-world/design-system'
 
 // Convert spacing to pixels
 const spacingInPx = tokenUtils.spacingToPx(4) // 64
@@ -544,7 +544,7 @@ const cssVars = tokenUtils.generateCSSVariables()
 ### **With Tailwind CSS**
 ```javascript
 // tailwind.config.js
-const { modernColors, spacing, fontSize } = require('@scalix/design-system')
+const { modernColors, spacing, fontSize } = require('@scalix-world/design-system')
 
 module.exports = {
   theme: {
@@ -560,7 +560,7 @@ module.exports = {
 ### **With Styled Components**
 ```tsx
 import styled from 'styled-components'
-import { modernColors, spacing, borderRadius } from '@scalix/design-system'
+import { modernColors, spacing, borderRadius } from '@scalix-world/design-system'
 
 const Button = styled.button`
   background-color: ${modernColors.blue[500]};
@@ -578,7 +578,7 @@ const Button = styled.button`
 ### **With CSS Modules**
 ```css
 /* styles.module.css */
-@import '@scalix/design-system/colors.css';
+@import '@scalix-world/design-system/colors.css';
 
 .button {
   background-color: var(--blue-500);
@@ -690,7 +690,7 @@ const colors = {
 }
 
 // After
-import { semanticColors } from '@scalix/design-system'
+import { semanticColors } from '@scalix-world/design-system'
 const colors = {
   primary: semanticColors.primary[500],
   secondary: semanticColors.secondary[500]
@@ -703,7 +703,7 @@ const colors = {
 import { Search, Heart } from 'react-feather'
 
 // After
-import { Icon } from '@scalix/design-system'
+import { Icon } from '@scalix-world/design-system'
 <Icon name="search" />
 <Icon name="heart" />
 ```
