@@ -1,4 +1,5 @@
 import { cn } from "@/lib/utils"
+import { NavLink } from "react-router-dom"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import {
@@ -17,22 +18,21 @@ interface SidebarProps {
   className?: string
   isOpen: boolean
   onToggle: () => void
-  currentView?: string
-  onNavigate?: (view: string) => void
+  onNavigate?: () => void
 }
 
 const navigation = [
-  { name: "Dashboard", view: "dashboard", icon: Home },
-  { name: "Analytics", view: "analytics", icon: BarChart3 },
-  { name: "Users", view: "users", icon: Users },
-  { name: "Products", view: "products", icon: ShoppingCart },
-  { name: "Orders", view: "orders", icon: FileText },
-  { name: "Reports", view: "reports", icon: PieChart },
-  { name: "Database", view: "database", icon: Database },
-  { name: "Settings", view: "settings", icon: Settings },
+  { name: "Dashboard", path: "/", icon: Home },
+  { name: "Analytics", path: "/analytics", icon: BarChart3 },
+  { name: "Users", path: "/users", icon: Users },
+  { name: "Products", path: "/products", icon: ShoppingCart },
+  { name: "Orders", path: "/orders", icon: FileText },
+  { name: "Reports", path: "/reports", icon: PieChart },
+  { name: "Database", path: "/database", icon: Database },
+  { name: "Settings", path: "/settings", icon: Settings },
 ]
 
-export function Sidebar({ className, isOpen, onToggle, currentView = "dashboard", onNavigate }: SidebarProps) {
+export function Sidebar({ className, isOpen, onToggle, onNavigate }: SidebarProps) {
   return (
     <>
       {/* Mobile backdrop */}
@@ -72,33 +72,40 @@ export function Sidebar({ className, isOpen, onToggle, currentView = "dashboard"
           <div className="space-y-1">
             {navigation.map((item) => {
               const Icon = item.icon
-              const isCurrent = currentView === item.view
               return (
-                <button
+                <NavLink
                   key={item.name}
-                  onClick={() => onNavigate?.(item.view)}
-                  className={cn(
-                    "group flex items-center w-full px-2 py-2 text-sm font-medium rounded-md transition-colors",
-                    isCurrent
-                      ? "bg-indigo-50 text-indigo-700 border-r-2 border-indigo-700 dark:bg-indigo-900/50 dark:text-indigo-200"
-                      : "text-gray-600 hover:bg-gray-50 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-200"
-                  )}
+                  to={item.path}
+                  end={item.path === "/"}
+                  onClick={() => onNavigate?.()}
+                  className={({ isActive }) =>
+                    cn(
+                      "group flex items-center w-full px-2 py-2 text-sm font-medium rounded-md transition-colors",
+                      isActive
+                        ? "bg-indigo-50 text-indigo-700 border-r-2 border-indigo-700 dark:bg-indigo-900/50 dark:text-indigo-200"
+                        : "text-gray-600 hover:bg-gray-50 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-200"
+                    )
+                  }
                 >
-                  <Icon
-                    className={cn(
-                      "mr-3 h-5 w-5 flex-shrink-0",
-                      isCurrent
-                        ? "text-indigo-500 dark:text-indigo-300"
-                        : "text-gray-400 group-hover:text-gray-500 dark:group-hover:text-gray-300"
-                    )}
-                  />
-                  {item.name}
-                  {item.name === "Dashboard" && (
-                    <Badge variant="secondary" className="ml-auto text-xs">
-                      New
-                    </Badge>
+                  {({ isActive }) => (
+                    <>
+                      <Icon
+                        className={cn(
+                          "mr-3 h-5 w-5 flex-shrink-0",
+                          isActive
+                            ? "text-indigo-500 dark:text-indigo-300"
+                            : "text-gray-400 group-hover:text-gray-500 dark:group-hover:text-gray-300"
+                        )}
+                      />
+                      {item.name}
+                      {item.name === "Dashboard" && (
+                        <Badge variant="secondary" className="ml-auto text-xs">
+                          New
+                        </Badge>
+                      )}
+                    </>
                   )}
-                </button>
+                </NavLink>
               )
             })}
           </div>

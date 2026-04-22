@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Routes, Route, Navigate, NavLink } from 'react-router-dom'
 import { Sidebar } from './components/dashboard/sidebar'
 import { DashboardOverview } from './components/dashboard/overview'
 import { DataTable } from './components/tables/data-table'
@@ -11,45 +12,19 @@ import { SettingsPage } from './pages/settings'
 import { Button } from './components/ui/button'
 import { Menu } from 'lucide-react'
 
-type View = 'dashboard' | 'analytics' | 'users' | 'products' | 'orders' | 'reports' | 'database' | 'settings'
-
-const viewLabels: Record<View, string> = {
-  dashboard: 'Dashboard',
-  analytics: 'Analytics',
-  users: 'Users',
-  products: 'Products',
-  orders: 'Orders',
-  reports: 'Reports',
-  database: 'Database',
-  settings: 'Settings',
-}
+const navTabs = [
+  { label: 'Dashboard', path: '/' },
+  { label: 'Analytics', path: '/analytics' },
+  { label: 'Users', path: '/users' },
+  { label: 'Products', path: '/products' },
+  { label: 'Orders', path: '/orders' },
+  { label: 'Reports', path: '/reports' },
+  { label: 'Database', path: '/database' },
+  { label: 'Settings', path: '/settings' },
+]
 
 function App() {
   const [sidebarOpen, setSidebarOpen] = useState(false)
-  const [currentView, setCurrentView] = useState<View>('dashboard')
-
-  const renderView = () => {
-    switch (currentView) {
-      case 'dashboard':
-        return <DashboardOverview />
-      case 'analytics':
-        return <AnalyticsPage />
-      case 'users':
-        return <DataTable />
-      case 'products':
-        return <ProductsPage />
-      case 'orders':
-        return <OrdersPage />
-      case 'reports':
-        return <ReportsPage />
-      case 'database':
-        return <DatabasePage />
-      case 'settings':
-        return <SettingsPage />
-      default:
-        return <DashboardOverview />
-    }
-  }
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -68,11 +43,7 @@ function App() {
       <Sidebar
         isOpen={sidebarOpen}
         onToggle={() => setSidebarOpen(false)}
-        currentView={currentView}
-        onNavigate={(view) => {
-          setCurrentView(view as View)
-          setSidebarOpen(false)
-        }}
+        onNavigate={() => setSidebarOpen(false)}
       />
 
       {/* Main content */}
@@ -82,24 +53,37 @@ function App() {
             {/* Navigation tabs */}
             <div className="mb-6">
               <nav className="flex space-x-1 overflow-x-auto">
-                {(Object.keys(viewLabels) as View[]).map((view) => (
-                  <button
-                    key={view}
-                    onClick={() => setCurrentView(view)}
-                    className={`px-4 py-2 text-sm font-medium rounded-md transition-colors whitespace-nowrap ${
-                      currentView === view
-                        ? 'bg-white text-indigo-700 border border-gray-200 shadow-sm'
-                        : 'text-gray-500 hover:text-gray-700 hover:bg-gray-100'
-                    }`}
+                {navTabs.map((tab) => (
+                  <NavLink
+                    key={tab.path}
+                    to={tab.path}
+                    end={tab.path === '/'}
+                    className={({ isActive }) =>
+                      `px-4 py-2 text-sm font-medium rounded-md transition-colors whitespace-nowrap ${
+                        isActive
+                          ? 'bg-white text-indigo-700 border border-gray-200 shadow-sm'
+                          : 'text-gray-500 hover:text-gray-700 hover:bg-gray-100'
+                      }`
+                    }
                   >
-                    {viewLabels[view]}
-                  </button>
+                    {tab.label}
+                  </NavLink>
                 ))}
               </nav>
             </div>
 
             {/* Content */}
-            {renderView()}
+            <Routes>
+              <Route path="/" element={<DashboardOverview />} />
+              <Route path="/analytics" element={<AnalyticsPage />} />
+              <Route path="/users" element={<DataTable />} />
+              <Route path="/products" element={<ProductsPage />} />
+              <Route path="/orders" element={<OrdersPage />} />
+              <Route path="/reports" element={<ReportsPage />} />
+              <Route path="/database" element={<DatabasePage />} />
+              <Route path="/settings" element={<SettingsPage />} />
+              <Route path="*" element={<Navigate to="/" replace />} />
+            </Routes>
           </div>
         </main>
       </div>
