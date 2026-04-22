@@ -2,6 +2,17 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Users, DollarSign, ShoppingCart, TrendingUp, Activity, Eye, Calendar, BarChart3 } from "lucide-react"
+import {
+  AreaChart,
+  Area,
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+} from "recharts"
 
 interface MetricCardProps {
   title: string
@@ -33,6 +44,36 @@ function MetricCard({ title, value, change, changeType, icon }: MetricCardProps)
     </Card>
   )
 }
+
+const revenueData = [
+  { month: "Jan", revenue: 18500 },
+  { month: "Feb", revenue: 22300 },
+  { month: "Mar", revenue: 19800 },
+  { month: "Apr", revenue: 27400 },
+  { month: "May", revenue: 31200 },
+  { month: "Jun", revenue: 28700 },
+  { month: "Jul", revenue: 34100 },
+  { month: "Aug", revenue: 29500 },
+  { month: "Sep", revenue: 36800 },
+  { month: "Oct", revenue: 38200 },
+  { month: "Nov", revenue: 41500 },
+  { month: "Dec", revenue: 45200 },
+]
+
+const userGrowthData = [
+  { month: "Jan", newUsers: 120, returning: 340 },
+  { month: "Feb", newUsers: 185, returning: 380 },
+  { month: "Mar", newUsers: 210, returning: 420 },
+  { month: "Apr", newUsers: 290, returning: 460 },
+  { month: "May", newUsers: 340, returning: 510 },
+  { month: "Jun", newUsers: 310, returning: 540 },
+  { month: "Jul", newUsers: 380, returning: 590 },
+  { month: "Aug", newUsers: 350, returning: 610 },
+  { month: "Sep", newUsers: 420, returning: 650 },
+  { month: "Oct", newUsers: 460, returning: 700 },
+  { month: "Nov", newUsers: 510, returning: 740 },
+  { month: "Dec", newUsers: 573, returning: 810 },
+]
 
 export function DashboardOverview() {
   const metrics = [
@@ -129,7 +170,7 @@ export function DashboardOverview() {
       </div>
 
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
-        {/* Revenue Chart Placeholder */}
+        {/* Revenue Area Chart */}
         <Card className="col-span-4">
           <CardHeader>
             <CardTitle>Revenue Overview</CardTitle>
@@ -138,13 +179,30 @@ export function DashboardOverview() {
             </CardDescription>
           </CardHeader>
           <CardContent className="pl-2">
-            <div className="h-[200px] flex items-center justify-center text-muted-foreground">
-              <div className="text-center">
-                <TrendingUp className="h-12 w-12 mx-auto mb-4 opacity-50" />
-                <p>Revenue chart will be implemented here</p>
-                <p className="text-sm">Using Recharts library</p>
-              </div>
-            </div>
+            <ResponsiveContainer width="100%" height={250}>
+              <AreaChart data={revenueData}>
+                <defs>
+                  <linearGradient id="revenueGradient" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="5%" stopColor="#6366f1" stopOpacity={0.3} />
+                    <stop offset="95%" stopColor="#6366f1" stopOpacity={0} />
+                  </linearGradient>
+                </defs>
+                <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+                <XAxis dataKey="month" fontSize={12} tickLine={false} axisLine={false} />
+                <YAxis fontSize={12} tickLine={false} axisLine={false} tickFormatter={(v) => `$${(v / 1000).toFixed(0)}k`} />
+                <Tooltip
+                  formatter={(value: number) => [`$${value.toLocaleString()}`, "Revenue"]}
+                  contentStyle={{ borderRadius: "8px", border: "1px solid #e5e7eb" }}
+                />
+                <Area
+                  type="monotone"
+                  dataKey="revenue"
+                  stroke="#6366f1"
+                  strokeWidth={2}
+                  fill="url(#revenueGradient)"
+                />
+              </AreaChart>
+            </ResponsiveContainer>
           </CardContent>
         </Card>
 
@@ -187,6 +245,30 @@ export function DashboardOverview() {
           </CardContent>
         </Card>
       </div>
+
+      {/* User Growth Bar Chart */}
+      <Card>
+        <CardHeader>
+          <CardTitle>User Growth</CardTitle>
+          <CardDescription>
+            New vs returning users over the last 12 months
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="pl-2">
+          <ResponsiveContainer width="100%" height={300}>
+            <BarChart data={userGrowthData}>
+              <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+              <XAxis dataKey="month" fontSize={12} tickLine={false} axisLine={false} />
+              <YAxis fontSize={12} tickLine={false} axisLine={false} />
+              <Tooltip
+                contentStyle={{ borderRadius: "8px", border: "1px solid #e5e7eb" }}
+              />
+              <Bar dataKey="newUsers" name="New Users" fill="#6366f1" radius={[4, 4, 0, 0]} />
+              <Bar dataKey="returning" name="Returning" fill="#a5b4fc" radius={[4, 4, 0, 0]} />
+            </BarChart>
+          </ResponsiveContainer>
+        </CardContent>
+      </Card>
 
       {/* Quick Actions */}
       <Card>

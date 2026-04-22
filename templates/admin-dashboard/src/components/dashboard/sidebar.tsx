@@ -10,7 +10,6 @@ import {
   FileText,
   PieChart,
   Database,
-  Menu,
   X
 } from "lucide-react"
 
@@ -18,20 +17,22 @@ interface SidebarProps {
   className?: string
   isOpen: boolean
   onToggle: () => void
+  currentView?: string
+  onNavigate?: (view: string) => void
 }
 
 const navigation = [
-  { name: "Dashboard", href: "#", icon: Home, current: true },
-  { name: "Analytics", href: "#", icon: BarChart3, current: false },
-  { name: "Users", href: "#", icon: Users, current: false },
-  { name: "Products", href: "#", icon: ShoppingCart, current: false },
-  { name: "Orders", href: "#", icon: FileText, current: false },
-  { name: "Reports", href: "#", icon: PieChart, current: false },
-  { name: "Database", href: "#", icon: Database, current: false },
-  { name: "Settings", href: "#", icon: Settings, current: false },
+  { name: "Dashboard", view: "dashboard", icon: Home },
+  { name: "Analytics", view: "analytics", icon: BarChart3 },
+  { name: "Users", view: "users", icon: Users },
+  { name: "Products", view: "products", icon: ShoppingCart },
+  { name: "Orders", view: "orders", icon: FileText },
+  { name: "Reports", view: "reports", icon: PieChart },
+  { name: "Database", view: "database", icon: Database },
+  { name: "Settings", view: "settings", icon: Settings },
 ]
 
-export function Sidebar({ className, isOpen, onToggle }: SidebarProps) {
+export function Sidebar({ className, isOpen, onToggle, currentView = "dashboard", onNavigate }: SidebarProps) {
   return (
     <>
       {/* Mobile backdrop */}
@@ -54,7 +55,7 @@ export function Sidebar({ className, isOpen, onToggle }: SidebarProps) {
               <BarChart3 className="w-5 h-5 text-white" />
             </div>
             <span className="text-xl font-bold text-gray-900 dark:text-white">
-              {{project-name}}
+              {"{{project-name}}"}
             </span>
           </div>
           <Button
@@ -71,13 +72,14 @@ export function Sidebar({ className, isOpen, onToggle }: SidebarProps) {
           <div className="space-y-1">
             {navigation.map((item) => {
               const Icon = item.icon
+              const isCurrent = currentView === item.view
               return (
-                <a
+                <button
                   key={item.name}
-                  href={item.href}
+                  onClick={() => onNavigate?.(item.view)}
                   className={cn(
-                    "group flex items-center px-2 py-2 text-sm font-medium rounded-md transition-colors",
-                    item.current
+                    "group flex items-center w-full px-2 py-2 text-sm font-medium rounded-md transition-colors",
+                    isCurrent
                       ? "bg-indigo-50 text-indigo-700 border-r-2 border-indigo-700 dark:bg-indigo-900/50 dark:text-indigo-200"
                       : "text-gray-600 hover:bg-gray-50 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-200"
                   )}
@@ -85,7 +87,7 @@ export function Sidebar({ className, isOpen, onToggle }: SidebarProps) {
                   <Icon
                     className={cn(
                       "mr-3 h-5 w-5 flex-shrink-0",
-                      item.current
+                      isCurrent
                         ? "text-indigo-500 dark:text-indigo-300"
                         : "text-gray-400 group-hover:text-gray-500 dark:group-hover:text-gray-300"
                     )}
@@ -96,7 +98,7 @@ export function Sidebar({ className, isOpen, onToggle }: SidebarProps) {
                       New
                     </Badge>
                   )}
-                </a>
+                </button>
               )
             })}
           </div>
