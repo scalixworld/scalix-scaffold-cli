@@ -70,7 +70,7 @@
     "id": "ecommerce",
     "name": "E-commerce Platform",
     "description": "Complete e-commerce platform with product catalog, shopping cart, checkout, and admin panel",
-    "repository": "https://github.com/scalixworld/scalix/scaffold-templates-ecommerce.git",
+    "repository": "https://github.com/scalixworld/template-ecommerce.git",
     "branch": "main",
     "tags": ["ecommerce", "shopping", "store", "commerce", "business", "retail"],
     "postInstall": [

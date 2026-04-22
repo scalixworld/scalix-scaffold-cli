@@ -44,7 +44,10 @@
     "autoprefixer": "^10.4.0",
     "eslint": "^8.0.0",
     "eslint-config-next": "^14.0.0",
+    "@testing-library/react": "^14.0.0",
+    "@testing-library/jest-dom": "^6.0.0",
     "jest": "^29.0.0",
+    "jest-environment-jsdom": "^29.0.0",
     "postcss": "^8.4.0",
     "tailwindcss": "^3.4.0",
     "typescript": "^5.0.0"
@@ -53,7 +56,7 @@
     "id": "nextjs",
     "name": "Next.js App",
     "description": "Full-stack Next.js application with App Router and API routes",
-    "repository": "https://github.com/scalixworld/scalix/scaffold-templates-nextjs.git",
+    "repository": "https://github.com/scalixworld/template-nextjs.git",
     "branch": "main",
     "tags": ["nextjs", "react", "typescript", "fullstack"],
     "postInstall": [
