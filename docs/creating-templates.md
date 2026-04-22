@@ -36,7 +36,7 @@ The `package.json` serves two purposes:
     "id": "your-template",
     "name": "Your Template Name",
     "description": "Detailed description of what this template provides",
-    "repository": "https://github.com/scalix-world/scalix/scaffold-templates-your-template.git",
+    "repository": "https://github.com/scalixworld/scalix/scaffold-templates-your-template.git",
     "branch": "main",
     "tags": ["framework", "language", "features"],
     "postInstall": [
@@ -144,7 +144,7 @@ Welcome to {{ProjectName}}!
 ```bash
 # Create GitHub repository
 # Clone locally
-git clone https://github.com/scalix-world/scalix/scaffold-templates-your-template.git
+git clone https://github.com/scalixworld/scalix/scaffold-templates-your-template.git
 cd scaffold-templates-your-template
 ```
 
@@ -319,7 +319,7 @@ nextjs-template/
 DEBUG=scalix:* scalix-scaffold create my-app --template your-template
 
 # Test template cloning directly
-git clone --depth 1 --branch main https://github.com/scalix-world/scalix/scaffold-templates-your-template.git test
+git clone --depth 1 --branch main https://github.com/scalixworld/scalix/scaffold-templates-your-template.git test
 ```
 
 ## Contributing

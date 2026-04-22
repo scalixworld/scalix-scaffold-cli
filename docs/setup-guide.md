@@ -21,7 +21,7 @@ This guide covers setting up the Scalix Scaffold System for development and usag
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/scalix-world/scalix.git
+git clone https://github.com/scalixworld/scalix.git
 cd scalix/INTERNAL/Scaffold-System
 ```
 
@@ -127,7 +127,7 @@ Each template repository should:
        "id": "your-template",
        "name": "Your Template",
        "description": "Template description",
-       "repository": "https://github.com/scalix-world/scalix/scaffold-templates-your-template.git"
+       "repository": "https://github.com/scalixworld/scalix/scaffold-templates-your-template.git"
      }
    }
    ```
@@ -238,9 +238,9 @@ The scaffold system should be maintained as a separate repository:
 
 ```bash
 # Create separate scaffold repository
-git clone https://github.com/scalix-world/scalix.git
+git clone https://github.com/scalixworld/scalix.git
 cd scalix
-git subtree push --prefix=INTERNAL/Scaffold-System https://github.com/scalix-world/scaffold main
+git subtree push --prefix=INTERNAL/Scaffold-System https://github.com/scalixworld/scaffold main
 ```
 
 ### Monorepo Integration
@@ -249,7 +249,7 @@ For monorepo usage, the scaffold system can be included as:
 
 1. **Git submodule**
    ```bash
-   git submodule add https://github.com/scalix-world/scaffold INTERNAL/Scaffold-System
+   git submodule add https://github.com/scalixworld/scaffold INTERNAL/Scaffold-System
    ```
 
 2. **Workspace dependency**

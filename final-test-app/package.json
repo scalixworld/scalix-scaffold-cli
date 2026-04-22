@@ -67,7 +67,7 @@
     "id": "admin-dashboard",
     "name": "Admin Dashboard",
     "description": "Comprehensive admin dashboard with analytics, user management, data tables, and charts",
-    "repository": "https://github.com/scalix-world/scalix/scaffold-templates-admin-dashboard.git",
+    "repository": "https://github.com/scalixworld/scalix/scaffold-templates-admin-dashboard.git",
     "branch": "main",
     "tags": ["admin", "dashboard", "analytics", "management", "business"],
     "postInstall": [

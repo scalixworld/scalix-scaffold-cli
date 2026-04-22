@@ -24,7 +24,7 @@ const DEFAULT_TEMPLATES: TemplateConfig[] = [
     id: 'react',
     name: 'React App',
     description: 'Modern React application with Vite, TypeScript, and Tailwind CSS',
-    repository: 'https://github.com/scalixworld/scaffold-templates-react.git',
+    repository: 'https://github.com/scalixworld/template-react.git',
     branch: 'main',
     tags: ['react', 'vite', 'typescript', 'tailwind'],
     postInstall: [
@@ -36,7 +36,7 @@ const DEFAULT_TEMPLATES: TemplateConfig[] = [
     id: 'nextjs',
     name: 'Next.js App',
     description: 'Full-stack Next.js application with App Router and API routes',
-    repository: 'https://github.com/scalixworld/scaffold-templates-nextjs.git',
+    repository: 'https://github.com/scalixworld/template-nextjs.git',
     branch: 'main',
     tags: ['nextjs', 'react', 'typescript', 'fullstack'],
     postInstall: [
@@ -48,7 +48,7 @@ const DEFAULT_TEMPLATES: TemplateConfig[] = [
     id: 'admin-dashboard',
     name: 'Admin Dashboard',
     description: 'Comprehensive admin dashboard with analytics, user management, and data visualization',
-    repository: 'https://github.com/scalixworld/scaffold-templates-admin-dashboard.git',
+    repository: 'https://github.com/scalixworld/template-admin-dashboard.git',
     branch: 'main',
     tags: ['admin', 'dashboard', 'analytics', 'management', 'business'],
     postInstall: [
@@ -61,7 +61,7 @@ const DEFAULT_TEMPLATES: TemplateConfig[] = [
     id: 'crm',
     name: 'CRM System',
     description: 'Complete CRM with customer management, lead tracking, sales pipeline, and analytics',
-    repository: 'https://github.com/scalixworld/scaffold-templates-crm.git',
+    repository: 'https://github.com/scalixworld/template-crm.git',
     branch: 'main',
     tags: ['crm', 'sales', 'customers', 'leads', 'business', 'management'],
     postInstall: [
@@ -75,7 +75,7 @@ const DEFAULT_TEMPLATES: TemplateConfig[] = [
     id: 'ecommerce',
     name: 'E-commerce Platform',
     description: 'Complete e-commerce platform with product catalog, shopping cart, checkout, and admin panel',
-    repository: 'https://github.com/scalixworld/scaffold-templates-ecommerce.git',
+    repository: 'https://github.com/scalixworld/template-ecommerce.git',
     branch: 'main',
     tags: ['ecommerce', 'shopping', 'store', 'commerce', 'business', 'retail', 'sales'],
     postInstall: [
@@ -90,7 +90,7 @@ const DEFAULT_TEMPLATES: TemplateConfig[] = [
     id: 'analytics-dashboard',
     name: 'Analytics Dashboard',
     description: 'Comprehensive analytics dashboard with data visualization, KPIs, and business intelligence',
-    repository: 'https://github.com/scalixworld/scaffold-templates-analytics-dashboard.git',
+    repository: 'https://github.com/scalixworld/template-analytics-dashboard.git',
     branch: 'main',
     tags: ['analytics', 'dashboard', 'data', 'visualization', 'business', 'intelligence', 'charts', 'metrics', 'bi'],
     postInstall: [

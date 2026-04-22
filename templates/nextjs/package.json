@@ -53,7 +53,7 @@
     "id": "nextjs",
     "name": "Next.js App",
     "description": "Full-stack Next.js application with App Router and API routes",
-    "repository": "https://github.com/scalix-world/scalix/scaffold-templates-nextjs.git",
+    "repository": "https://github.com/scalixworld/scalix/scaffold-templates-nextjs.git",
     "branch": "main",
     "tags": ["nextjs", "react", "typescript", "fullstack"],
     "postInstall": [

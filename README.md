@@ -35,7 +35,7 @@ INTERNAL/Scaffold-System/
 
 ```bash
 # Clone the scaffold system
-git clone https://github.com/scalix-world/scalix/scaffold.git
+git clone https://github.com/scalixworld/scalix/scaffold.git
 cd scaffold
 
 # Install dependencies
@@ -127,7 +127,7 @@ Add template metadata to `package.json`:
     "id": "template-id",
     "name": "Template Display Name",
     "description": "Template description",
-    "repository": "https://github.com/scalix-world/scalix/scaffold-templates-template-id.git",
+    "repository": "https://github.com/scalixworld/scalix/scaffold-templates-template-id.git",
     "branch": "main",
     "tags": ["tag1", "tag2"],
     "postInstall": [
