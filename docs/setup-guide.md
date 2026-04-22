@@ -81,16 +81,17 @@ npm run dev
 
 ### GitHub Organization
 
-Create repositories under the `scalix-world` organization:
+Create repositories under the `scalixworld` organization:
 
 ```
-scalix-world/
-├── scalix/                          # Main monorepo
-├── scaffold/                        # Scaffold system (separate repo)
-├── scaffold-templates-react/        # React template
-├── scaffold-templates-nextjs/       # Next.js template
-├── scaffold-templates-vue/          # Vue template
-└── scaffold-templates-svelte/       # Svelte template
+scalixworld/
+├── Scalix-ORG/                      # Main monorepo
+├── template-react/                  # React template
+├── template-nextjs/                 # Next.js template
+├── template-admin-dashboard/        # Admin Dashboard template
+├── template-crm/                    # CRM template
+├── template-ecommerce/              # E-Commerce template
+└── template-analytics-dashboard/    # Analytics Dashboard template
 ```
 
 ### Repository Configuration
@@ -108,7 +109,7 @@ Each template repository should:
 
 1. **Create GitHub repository**
    ```bash
-   # Repository name: scalix-world/scaffold-templates-your-template
+   # Repository name: scalixworld/template-your-template
    ```
 
 2. **Set up template structure**
@@ -123,11 +124,11 @@ Each template repository should:
    ```json
    {
      "name": "scalix-template-your-template",
-     "scalixTemplate": {
+     "scalixWorldTemplate": {
        "id": "your-template",
        "name": "Your Template",
        "description": "Template description",
-       "repository": "https://github.com/scalixworld/scalix/scaffold-templates-your-template.git"
+       "repository": "https://github.com/scalixworld/template-your-template.git"
      }
    }
    ```

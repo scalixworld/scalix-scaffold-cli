@@ -32,11 +32,11 @@ The `package.json` serves two purposes:
   "name": "scalix-template-your-template",
   "version": "1.0.0",
   "description": "Your template description",
-  "scalixTemplate": {
+  "scalixWorldTemplate": {
     "id": "your-template",
     "name": "Your Template Name",
     "description": "Detailed description of what this template provides",
-    "repository": "https://github.com/scalixworld/scalix/scaffold-templates-your-template.git",
+    "repository": "https://github.com/scalixworld/template-your-template.git",
     "branch": "main",
     "tags": ["framework", "language", "features"],
     "postInstall": [
@@ -144,8 +144,8 @@ Welcome to {{ProjectName}}!
 ```bash
 # Create GitHub repository
 # Clone locally
-git clone https://github.com/scalixworld/scalix/scaffold-templates-your-template.git
-cd scaffold-templates-your-template
+git clone https://github.com/scalixworld/template-your-template.git
+cd template-your-template
 ```
 
 ### 2. Set Up Project Structure
@@ -246,7 +246,7 @@ describe('Template Tests', () => {
 
 ### GitHub Repository
 
-1. Create repository under `scalix-world/scaffold-templates-*`
+1. Create repository under `scalixworld/template-*`
 2. Initialize with template code
 3. Add comprehensive README
 4. Tag releases for versioning
@@ -319,7 +319,7 @@ nextjs-template/
 DEBUG=scalix:* scalix-scaffold create my-app --template your-template
 
 # Test template cloning directly
-git clone --depth 1 --branch main https://github.com/scalixworld/scalix/scaffold-templates-your-template.git test
+git clone --depth 1 --branch main https://github.com/scalixworld/template-your-template.git test
 ```
 
 ## Contributing
