@@ -330,7 +330,7 @@ Templates can specify dev tools:
 
 ```json
 {
-  "scalixTemplate": {
+  "scalixWorldTemplate": {
     "devTools": [
       "@scalix-world/react-vite-component-tagger",
       "@scalix-world/nextjs-webpack-component-tagger"

@@ -111,7 +111,7 @@ Scaffold-System/
   - `--all`: Validate all registered templates
   - `--template <id>`: Validate one specific template
   - (no flags): Validate current directory as a template
-- Validation checks: package.json presence, scalixTemplate config, required files, config files (tsconfig, vite, tailwind), source directory structure, repository URL, dependencies, strict mode (.gitignore, LICENSE, etc.)
+- Validation checks: package.json presence, scalixWorldTemplate config, required files, config files (tsconfig, vite, tailwind), source directory structure, repository URL, dependencies, strict mode (.gitignore, LICENSE, etc.)
 
 ### 4.5 `scalix-world help`
 - Displays Commander help output
@@ -227,7 +227,7 @@ Two modes of validation:
 
 ### 7.1 Directory Validation (`validateTemplate`)
 Checks a file-system path as a template:
-- **Package.json:** Required fields (name, version), `scalixTemplate` config (id, name, description), ID format regex (`/^[a-z][a-z0-9-]*$/`)
+- **Package.json:** Required fields (name, version), `scalixWorldTemplate` config (id, name, description), ID format regex (`/^[a-z][a-z0-9-]*$/`)
 - **Required files:** package.json
 - **Recommended files:** README.md, README-template.md
 - **Config files:** Validates JSON parse for .json configs, non-empty content for .js/.ts configs
@@ -282,7 +282,7 @@ Two progress tracking mechanisms:
 
 ### 11.1 Metadata Key Inconsistency
 - Templates' `package.json` uses `scalixWorldTemplate` as the config key
-- The validation engine in `validation.ts:97` checks for `scalixTemplate` (without "World")
+- The validation engine in `validation.ts:97` checks for `scalixWorldTemplate` (without "World")
 - The `config.ts` loader at line 198 correctly reads `scalixWorldTemplate`
 - This means `validateTemplate()` (directory validation mode) will always report an error because it looks for the wrong key, while `loadTemplatesFromPackages()` works correctly
 

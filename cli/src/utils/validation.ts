@@ -93,19 +93,19 @@ async function validatePackageJson(templatePath: string, result: ValidationResul
       }
     }
 
-    // Check scalixTemplate configuration
-    if (!packageJson.scalixTemplate) {
-      result.errors.push('package.json missing scalixTemplate configuration');
+    // Check scalixWorldTemplate configuration
+    if (!packageJson.scalixWorldTemplate) {
+      result.errors.push('package.json missing scalixWorldTemplate configuration');
       result.isValid = false;
       return;
     }
 
-    const templateConfig = packageJson.scalixTemplate;
+    const templateConfig = packageJson.scalixWorldTemplate;
     const requiredTemplateFields = ['id', 'name', 'description'];
 
     for (const field of requiredTemplateFields) {
       if (!templateConfig[field]) {
-        result.errors.push(`scalixTemplate missing required field: ${field}`);
+        result.errors.push(`scalixWorldTemplate missing required field: ${field}`);
         result.isValid = false;
       }
     }
@@ -230,8 +230,8 @@ async function validateRepository(templatePath: string, result: ValidationResult
     const packagePath = path.join(templatePath, 'package.json');
     const packageJson = await fs.readJson(packagePath);
 
-    if (packageJson.scalixTemplate?.repository) {
-      const repo = packageJson.scalixTemplate.repository;
+    if (packageJson.scalixWorldTemplate?.repository) {
+      const repo = packageJson.scalixWorldTemplate.repository;
 
       // Basic URL validation
       try {
@@ -248,7 +248,7 @@ async function validateRepository(templatePath: string, result: ValidationResult
         result.isValid = false;
       }
     } else {
-      result.warnings.push('No repository URL specified in scalixTemplate');
+      result.warnings.push('No repository URL specified in scalixWorldTemplate');
     }
   } catch (error) {
     result.warnings.push('Could not validate repository configuration');
