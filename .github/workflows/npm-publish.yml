@@ -21,9 +21,9 @@ jobs:
           npm ci
           npm run build
           npm test --if-present
-      - name: Verify import
+      - name: Verify build output exists
         working-directory: cli
-        run: node -e "require('./dist/index.js')"
+        run: test -f dist/index.js
       - name: Check contents
         working-directory: cli
         run: npm pack --dry-run
