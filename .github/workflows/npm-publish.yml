@@ -6,6 +6,10 @@ on:
     tags: ['v*']
   pull_request:
     branches: [main]
+  workflow_dispatch:
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 jobs:
   ci-scaffold-cli:
@@ -14,7 +18,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22'
       - name: Install, build, test
         working-directory: cli
         run: |
@@ -34,7 +38,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22'
       - name: Install, build, test
         working-directory: packages/react-vite-component-tagger
         run: |
@@ -54,7 +58,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22'
       - name: Install, build, test
         working-directory: packages/nextjs-webpack-component-tagger
         run: |
@@ -78,7 +82,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22'
           registry-url: 'https://registry.npmjs.org'
       - working-directory: cli
         run: npm ci && npm run build
@@ -97,7 +101,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22'
           registry-url: 'https://registry.npmjs.org'
       - working-directory: packages/react-vite-component-tagger
         run: npm ci && npm run build
@@ -116,7 +120,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22'
           registry-url: 'https://registry.npmjs.org'
       - working-directory: packages/nextjs-webpack-component-tagger
         run: npm ci && npm run build
