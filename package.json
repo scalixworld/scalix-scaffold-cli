@@ -1,10 +1,10 @@
 {
-  "name": "@scalix-world/scaffold-cli",
+  "name": "create-scalix",
   "version": "0.1.0",
-  "description": "Scalix Scaffold CLI - Create new applications from pre-built templates",
+  "description": "Create new Scalix applications from pre-built templates",
   "main": "cli/index.js",
   "bin": {
-    "scalix-scaffold": "./cli/index.js"
+    "create-scalix": "./cli/index.js"
   },
   "scripts": {
     "build": "npm run build --workspaces",

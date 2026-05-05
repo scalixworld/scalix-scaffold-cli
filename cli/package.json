@@ -1,10 +1,10 @@
 {
-  "name": "@scalix-world/scaffold-cli",
+  "name": "create-scalix",
   "version": "1.0.0",
-  "description": "Scalix World CLI - Command-line interface for creating new Scalix World applications from templates",
+  "description": "Create new Scalix applications from pre-built templates",
   "main": "dist/index.js",
   "bin": {
-    "scalix-scaffold": "./dist/index.js"
+    "create-scalix": "./dist/index.js"
   },
   "scripts": {
     "build": "tsc",
