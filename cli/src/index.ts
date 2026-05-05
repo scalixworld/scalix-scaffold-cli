@@ -6,13 +6,14 @@ import { createApp } from './commands/create';
 import { listTemplates } from './commands/list';
 import { initTemplate } from './commands/init';
 import { validateCommand } from './commands/validate';
+import { checkForUpdate } from './utils/update-checker';
 
 const program = new Command();
 
 program
   .name('scalix-world')
   .description('Scalix World CLI - Create new Scalix World applications from templates')
-  .version('0.1.0');
+  .version('1.1.0');
 
 program
   .command('create <name>')
@@ -59,5 +60,7 @@ if (process.argv.length === 2) {
   console.log(chalk.gray('Create new Scalix World applications from templates\n'));
   program.help();
 }
+
+checkForUpdate().catch(() => {});
 
 program.parse();
