@@ -13,7 +13,7 @@ const program = new Command();
 program
   .name('scalix-world')
   .description('Scalix World CLI - Create new Scalix World applications from templates')
-  .version('1.1.0');
+  .version('1.2.0');
 
 program
   .command('create <name>')

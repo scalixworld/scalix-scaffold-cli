@@ -5,7 +5,7 @@ import os from 'os';
 import chalk from 'chalk';
 
 const PACKAGE_NAME = 'create-scalix';
-const CLI_VERSION = '1.1.0';
+const CLI_VERSION = '1.2.0';
 const REGISTRY_URL = `https://registry.npmjs.org/${PACKAGE_NAME}/latest`;
 const CHECK_INTERVAL_MS = 24 * 60 * 60 * 1000;
 const FETCH_TIMEOUT_MS = 5_000;
